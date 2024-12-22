@@ -1,0 +1,210 @@
+mysql>    create database cvr;
+Query OK, 1 row affected (0.09 sec)
+
+mysql> use cvr;
+Database changed
+mysql> show tables;
+Empty set (0.16 sec)
+
+mysql> create table student(sno int, sname varchar(20), marks int, city varchar(20), mobile int, gender varchar(20));
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> INSERT INTO student VALUES (1, 'Rohan', 92, 'Mumbai', 9876543210, 'male');
+ERROR 1264 (22003): Out of range value for column 'mobile' at row 1
+mysql> ^C
+mysql> ALTER TABLE student MODIFY mobile BIGINT;
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO student VALUES (1, 'Rohan', 92, 'Mumbai', 9876543210, 'male');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO student VALUES (2, 'Sneha', 45, 'Chennai', 9876543211, 'female');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO student VALUES (3, 'Teja', 60, 'Pune', 9876543212, 'female');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO student VALUES (4, 'Varun', 82, 'Bangalore', 9876543213, 'male');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO student VALUES (5, 'Arun', 15, 'Delhi', 9876543214, 'male');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO student VALUES (6, 'Chetan', 58, 'Kolkata', 9876543215, 'male');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO student VALUES (7, 'Vikram', 96, 'Hyderabad', 9876543216, 'male');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO student VALUES (8, 'Pragati', 89, 'Bangalore', 9876543217, 'female');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO student VALUES (9, 'Nisha', 84, 'Hyderabad', 9876543218, 'female');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO student VALUES (10, 'Ravi', 91, 'Chennai', 9876543219, 'male');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO student VALUES (11, 'Sandeep', 78, 'Mumbai', 9876543220, 'male');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO student VALUES (12, 'Rohit', 76, 'Pune', 9876543221, 'male');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO student VALUES (13, 'Ananya', 74, 'Delhi', 9876543222, 'female');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from student;
++------+---------+-------+-----------+------------+--------+
+| sno  | sname   | marks | city      | mobile     | gender |
++------+---------+-------+-----------+------------+--------+
+|    1 | Rohan   |    92 | Mumbai    | 9876543210 | male   |
+|    2 | Sneha   |    45 | Chennai   | 9876543211 | female |
+|    3 | Teja    |    60 | Pune      | 9876543212 | female |
+|    4 | Varun   |    82 | Bangalore | 9876543213 | male   |
+|    5 | Arun    |    15 | Delhi     | 9876543214 | male   |
+|    6 | Chetan  |    58 | Kolkata   | 9876543215 | male   |
+|    7 | Vikram  |    96 | Hyderabad | 9876543216 | male   |
+|    8 | Pragati |    89 | Bangalore | 9876543217 | female |
+|    9 | Nisha   |    84 | Hyderabad | 9876543218 | female |
+|   10 | Ravi    |    91 | Chennai   | 9876543219 | male   |
+|   11 | Sandeep |    78 | Mumbai    | 9876543220 | male   |
+|   12 | Rohit   |    76 | Pune      | 9876543221 | male   |
+|   13 | Ananya  |    74 | Delhi     | 9876543222 | female |
++------+---------+-------+-----------+------------+--------+
+13 rows in set (0.00 sec)
+
+mysql> Display student details whose city is Pune
+    -> ^C
+mysql> select * from student where city='Pune';
++------+-------+-------+------+------------+--------+
+| sno  | sname | marks | city | mobile     | gender |
++------+-------+-------+------+------------+--------+
+|    3 | Teja  |    60 | Pune | 9876543212 | female |
+|   12 | Rohit |    76 | Pune | 9876543221 | male   |
++------+-------+-------+------+------------+--------+
+2 rows in set (0.03 sec)
+
+mysql> Select * from student where city='Hyderabad' or city='Pune';
++------+--------+-------+-----------+------------+--------+
+| sno  | sname  | marks | city      | mobile     | gender |
++------+--------+-------+-----------+------------+--------+
+|    3 | Teja   |    60 | Pune      | 9876543212 | female |
+|    7 | Vikram |    96 | Hyderabad | 9876543216 | male   |
+|    9 | Nisha  |    84 | Hyderabad | 9876543218 | female |
+|   12 | Rohit  |    76 | Pune      | 9876543221 | male   |
++------+--------+-------+-----------+------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select * from student where gender='female and city='Hyderabad' or gender='male' and city='Pune' or city=Bangalore;
+
+mysql> SELECT *
+    -> FROM student
+    -> WHERE
+    ->     (gender = 'female' AND city = 'Hyderabad')
+    ->     OR (gender = 'male' AND city = 'Pune')
+    ->     OR city = 'bglr';
++------+-------+-------+-----------+------------+--------+
+| sno  | sname | marks | city      | mobile     | gender |
++------+-------+-------+-----------+------------+--------+
+|    9 | Nisha |    84 | Hyderabad | 9876543218 | female |
+|   12 | Rohit |    76 | Pune      | 9876543221 | male   |
++------+-------+-------+-----------+------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM student
+    -> WHERE
+    ->     (city = 'Hyderabad' AND gender = 'male' AND marks >= 70)
+    ->     OR (gender = 'female' AND marks >= 50 AND city = 'Hyderabad')
+    ->     OR (gender = 'male' AND city = 'Pune');
++------+--------+-------+-----------+------------+--------+
+| sno  | sname  | marks | city      | mobile     | gender |
++------+--------+-------+-----------+------------+--------+
+|    7 | Vikram |    96 | Hyderabad | 9876543216 | male   |
+|    9 | Nisha  |    84 | Hyderabad | 9876543218 | female |
+|   12 | Rohit  |    76 | Pune      | 9876543221 | male   |
++------+--------+-------+-----------+------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM student
+    -> WHERE marks BETWEEN 50 AND 80
+    ->   AND city IN ('Hyderabad', 'Bangalore');
+Empty set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM student
+    -> WHERE sname LIKE 'S%A';
++------+-------+-------+---------+------------+--------+
+| sno  | sname | marks | city    | mobile     | gender |
++------+-------+-------+---------+------------+--------+
+|    2 | Sneha |    45 | Chennai | 9876543211 | female |
++------+-------+-------+---------+------------+--------+
+1 row in set (0.03 sec)
+
+mysql> SELECT city, COUNT(*) AS "NO of stds"
+    -> FROM student
+    -> GROUP BY city;
++-----------+------------+
+| city      | NO of stds |
++-----------+------------+
+| Mumbai    |          2 |
+| Chennai   |          2 |
+| Pune      |          2 |
+| Bangalore |          2 |
+| Delhi     |          2 |
+| Kolkata   |          1 |
+| Hyderabad |          2 |
++-----------+------------+
+7 rows in set (0.04 sec)
+
+mysql> SELECT city, AVG(marks) AS "avg_score"
+    -> FROM student
+    -> GROUP BY city
+    -> ORDER BY AVG(marks) DESC
+    -> LIMIT 1;
++-----------+-----------+
+| city      | avg_score |
++-----------+-----------+
+| Hyderabad |   90.0000 |
++-----------+-----------+
+1 row in set (0.04 sec)
+
+mysql> SELECT city, MAX(marks) AS top_score
+    -> FROM student
+    -> GROUP BY city
+    -> ORDER BY MAX(marks) DESC;
++-----------+-----------+
+| city      | top_score |
++-----------+-----------+
+| Hyderabad |        96 |
+| Mumbai    |        92 |
+| Chennai   |        91 |
+| Bangalore |        89 |
+| Pune      |        76 |
+| Delhi     |        74 |
+| Kolkata   |        58 |
++-----------+-----------+
+7 rows in set (0.03 sec)
+
+mysql> SELECT *
+    -> FROM student
+    -> WHERE city = 'Hyderabad'
+    -> ORDER BY marks DESC
+    -> LIMIT 1;
++------+--------+-------+-----------+------------+--------+
+| sno  | sname  | marks | city      | mobile     | gender |
++------+--------+-------+-----------+------------+--------+
+|    7 | Vikram |    96 | Hyderabad | 9876543216 | male   |
++------+--------+-------+-----------+------------+--------+
+1 row in set (0.03 sec)
+
+mysql>
+
+
+
+
+
+

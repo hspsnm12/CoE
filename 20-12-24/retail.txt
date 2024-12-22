@@ -1,0 +1,101 @@
+mysql> CREATE TABLE salesperson (
+    ->     Snum INT NOT NULL,
+    ->     sname VARCHAR(30) NOT NULL,
+    ->     city VARCHAR(30) NOT NULL,
+    ->     com DECIMAL(4,2) NOT NULL,
+    ->     PRIMARY KEY (snum)
+    -> );
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> CREATE TABLE customer (
+    ->     cnum INT NOT NULL,
+    ->     cname VARCHAR(30) NOT NULL,
+    ->     city VARCHAR(30) NOT NULL,
+    ->     rating INT NOT NULL,
+    ->     snum INT NOT NULL,
+    ->     PRIMARY KEY (cnum),
+    ->     FOREIGN KEY (snum) REFERENCES salesperson(snum)
+    -> );
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> INSERT INTO salesperson (Snum, sname, city, com) VALUES
+    -> (1001, 'Peel', 'London', 0.12),
+    -> (1002, 'Serres', 'San Jose', 0.13),
+    -> (1003, 'Motika', 'London', 0.11),
+    -> (1004, 'Fran', 'London', 0.26),
+    -> (1005, 'Rifkin', 'Barcelona', 0.15);
+Query OK, 5 rows affected (0.01 sec)
+
+mysql> INSERT INTO customer (cnum, cname, city, rating, snum) VALUES
+    -> (2001, 'Hoffman', 'London', 100, 1001),
+    -> (2002, 'Giovanni', 'Rome', 200, 1003),
+    -> (2003, 'Liu', 'San Jose', 200, 1002),
+    -> (2004, 'Grass', 'Berlin', 300, 1002),
+    -> (2006, 'Clemens', 'London', 100, 1001),
+    -> (2007, 'Pereria', 'Rome', 100, 1004),
+    -> (2008, 'Cisneros', 'San Jose', 300, 1007);
+Query OK, 7 rows affected (0.05 sec)
+
+mysql> SELECT s.sname, s.snum
+    -> FROM salesperson s
+    -> LEFT JOIN customer c ON s.snum = c.snum
+    -> WHERE c.cnum IS NULL;
++--------+------+
+| sname  | snum |
++--------+------+
+| Rifkin | 1005 |
++--------+------+
+1 row in set (0.01 sec)
+
+mysql> SELECT s.sname, s.snum, SUM(c.rating) AS total_rating
+    -> FROM salesperson s
+    -> LEFT JOIN customer c ON s.snum = c.snum
+    -> GROUP BY s.snum
+    -> ORDER BY total_rating ASC
+    -> LIMIT 1;
++--------+------+--------------+
+| sname  | snum | total_rating |
++--------+------+--------------+
+| Peel   | 1001 |          300 |
++--------+------+--------------+
+1 row in set (0.02 sec)
+
+mysql> SELECT s.sname, s.snum, COUNT(*) AS number_of_customers
+    -> FROM salesperson s
+    -> LEFT JOIN customer c ON s.snum = c.snum
+    -> GROUP BY s.snum;
++--------+------+---------------------+
+| sname  | snum | number_of_customers |
++--------+------+---------------------+
+| Peel   | 1001 |                   2 |
+| Serres | 1002 |                   2 |
+| Motika | 1003 |                   1 |
+| Fran   | 1004 |                   1 |
+| Rifkin | 1005 |                   0 |
++--------+------+---------------------+
+5 rows in set (0.01 sec)
+
+mysql> SELECT s.sname, s.snum, SUM(c.rating) AS total_rating
+    -> FROM salesperson s
+    -> LEFT JOIN customer c ON s.snum = c.snum
+    -> GROUP BY s.snum
+    -> ORDER BY total_rating DESC
+    -> LIMIT 1;
++--------+------+--------------+
+| sname  | snum | total_rating |
++--------+------+--------------+
+| Serres | 1002 |          500 |
++--------+------+--------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT s.sname, s.snum
+    -> FROM salesperson s
+    -> JOIN customer c ON s.snum = c.snum
+    -> WHERE s.city = c.city;
++--------+------+
+| sname  | snum |
++--------+------+
+| Liu    | 1002 |
+| Clemens| 1001 |
++--------+------+
+2 rows in set (0.01 sec)
