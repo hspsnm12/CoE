@@ -1,0 +1,128 @@
+IDEAS / ANALYSIS
+
+                                        NOT RELATED TO GOVERNMENT
+--> "?" in the country field can be verified to know where these people actually belong to  
+    Aspect: Country, Social Analysis  
+
+    Relevant Columns:  
+    - Country: Indicates the recorded country of origin. Entries with "?" require verification.  
+    - Citizenship: Provides additional context, such as whether the individual is native-born or foreign-born.  
+
+    Analysis:  
+    - Cross-check individuals with "?" in the country column against the citizenship field.  
+    - Example: If the citizenship is "Native-Born in the United States," the country can likely be inferred as the "United States."  
+    - Missing information can distort demographic analyses, so accurate data is critical for social and governmental policies.  
+
+---
+--> Income tax filing consultancies  
+    Aspect: Tax Filing Status  
+
+    Relevant Columns:  
+    - Tax Filing Status: Captures the filing type (e.g., Nonfiler, Headofhousehold, Jointbothunder65, Single).  
+    - Income: Helps understand income levels of individuals and identify those who might need filing assistance.  
+
+    Analysis:  
+    - A significant number of "Nonfilers" indicates potential gaps in awareness or financial barriers.  
+    - Cross-reference income levels with tax filing statuses:  
+    - Example: Individuals earning above a certain threshold but listed as "Nonfiler" may need targeted education or incentives to file taxes.  
+    - Setting up consultancies or assistance programs can improve compliance and enable access to tax-linked benefits.  
+
+---
+
+-->Community for non-natives  
+    Aspect: Citizenship  
+
+    Relevant Columns:  
+    - Citizenship: Identifies whether the individual is foreign-born or a native citizen.  
+    - Country: Provides context about the individual’s origin, especially for non-citizens.  
+    - No. of Weeks Worked: Indicates economic participation and highlights challenges faced by non-citizens in securing employment.  
+
+    Analysis:  
+    - Non-citizens ("Foreign-Born - Not a Citizen of US") may require support with language, cultural integration, or employment.  
+    - Examine employment trends for non-citizens to design programs that encourage workforce participation.  
+    - Establish local networks or communities to help non-natives integrate more effectively, focusing on areas with high non-native populations. 
+    ------------------------------------------------------------------------------------------------------------- 
+                                        RELATED TO GOVERNMENT
+-->EDUCATION ANALYSIS  
+   1. Literacy rate  
+      - Relevant Columns: Education, Gender  
+      - Analysis: Calculate the overall literacy rate based on the highest education level attained.  
+      - Action: Create adult literacy programs to increase overall literacy rates.  
+
+   2. Female/Male literacy rate to provide schemes to the gender with less literacy  
+      - Relevant Columns: Education, Gender  
+      - Analysis: Compare literacy levels between males and females to identify gender disparities.  
+      - Action: Offer scholarships or educational support programs to the gender with lower literacy rates.  
+
+   3. Schemes for orphans' education  
+      - Relevant Columns: Age, Parent's Status, Education  
+      - Analysis: Identify children marked as "Not in universe" under Parent's Status who have low education levels.  
+      - Action: Develop government or NGO-funded educational programs specifically for orphans or children without parental support.  
+
+   4. Career counseling programs  
+      - Relevant Columns: Education, Income, No. of Weeks Worked  
+      - Analysis: Target individuals with education levels like "Some college but no degree" to reduce dropouts and enhance employability.  
+
+---
+
+-->SOCIAL ANALYSIS  
+   1.  For children/minors without parents, schemes should be provided  
+      - Relevant Columns: Age, Parent's Status, Income  
+      - Analysis: Identify children under 18 marked as "Not in universe" for parental status and allocate resources for their welfare.  
+      - Action: Provide free healthcare, food, and education for these children.  
+
+   3. How many orphans are present?  
+      - Relevant Columns: Parent's Status, Age  
+      - Analysis: Count the number of individuals labeled as "Not in universe" under Parent's Status.  
+      - Action: Use this data to prioritize funding and support services for orphans.  
+
+   4. Child labor awareness  
+      - Relevant Columns: Age, No. of Weeks Worked, Income  
+      - Analysis: Identify minors working for income and ensure compliance with labor laws.  
+      - Action: Launch awareness campaigns and offer financial aid to families of working children.  
+
+---
+
+--> FINANCIAL ANALYSIS  
+   1. Income disparity across demographics  
+      - Relevant Columns: Income, Education, Gender, Marital Status  
+      - Analysis: Assess income levels by education, gender, and marital status to identify economic disparities.  
+      - Action: Provide targeted skill development and income support programs.  
+
+   2. Tax filing patterns  
+      - Relevant Columns: Tax Filing Status, Income  
+      - Analysis: Identify patterns among "Nonfilers" and other tax statuses.  
+      - Action: Encourage tax filing through educational workshops and provide tax incentives for low-income earners.  
+
+   3. Employment trends  
+      - Relevant Columns: No. of Weeks Worked, Age, Gender, Citizenship  
+      - Analysis: Study employment trends to identify groups with zero or low weeks worked.  
+      - Action: Create job creation schemes and workforce participation incentives, especially for vulnerable demographics.  
+
+   4. Poverty alleviation  
+      - Relevant Columns: Income, Marital Status, Parent's Status  
+      - Analysis: Identify individuals with extremely low incomes.  
+      - Action: Provide direct cash transfers, subsidies, or social welfare schemes for such groups.  
+
+---
+
+--> PLANNING ANALYSIS  
+   1. The pension that has to be given to the people turning 60 next year  
+      - Relevant Columns: Age, Income  
+      - Analysis: Identify individuals currently 59 years old to estimate pension costs for the next year.  
+      - Action: Allocate budget for pensions and ensure timely disbursement.  
+
+   2. Housing and infrastructure needs  
+      - Relevant Columns: Income, Marital Status, Parent's Status  
+      - Analysis: Identify individuals with low income and unstable family situations.  
+      - Action: Plan for affordable housing projects or subsidies for such groups.  
+
+   3. Support for non-citizens  
+      - Relevant Columns: Citizenship, No. of Weeks Worked, Income  
+      - Analysis: Assess the employment and income status of foreign-born individuals.  
+      - Action: Develop cultural orientation and employment support programs for non-citizens.  
+
+   4. Retirement savings awareness  
+      - Relevant Columns: Age, Income, Tax Filing Status  
+      - Analysis: Target individuals nearing retirement age with low incomes.  
+      - Action: Launch campaigns to promote retirement savings plans and offer government-backed schemes.  

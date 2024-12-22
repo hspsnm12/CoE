@@ -1,0 +1,338 @@
+mysql> use hasini1218;
+Database changed
+mysql> show tables
+    -> ;
++----------------------+
+| Tables_in_hasini1218 |
++----------------------+
+| customer             |
+| orders               |
+| salespeople          |
++----------------------+
+3 rows in set (0.00 sec)
+
+mysql> desc customer;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| cnum   | int(11)     | NO   | PRI | NULL    |       |
+| cname  | varchar(30) | NO   |     | NULL    |       |
+| city   | varchar(30) | NO   |     | NULL    |       |
+| rating | int(11)     | NO   |     | NULL    |       |
+| snum   | int(11)     | NO   | MUL | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> select * from customer;
++------+----------+----------+--------+------+
+| cnum | cname    | city     | rating | snum |
++------+----------+----------+--------+------+
+| 2001 | Hoffman  | London   |    100 | 1001 |
+| 2002 | Giovanni | Rome     |    200 | 1003 |
+| 2003 | Liu      | San Jose |    200 | 1002 |
+| 2004 | Grass    | Berlin   |    300 | 1002 |
+| 2006 | Clemens  | London   |    100 | 1001 |
+| 2007 | Pereira  | Rome     |    100 | 1004 |
+| 2008 | Cisneros | San Jose |    300 | 1007 |
++------+----------+----------+--------+------+
+7 rows in set (0.00 sec)
+
+mysql> desc orders;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| onum  | int(11)      | NO   | PRI | NULL    |       |
+| amt   | decimal(7,2) | NO   |     | NULL    |       |
+| odate | date         | NO   |     | NULL    |       |
+| cnum  | int(11)      | NO   | MUL | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select * from orders;
++------+---------+------------+------+
+| onum | amt     | odate      | cnum |
++------+---------+------------+------+
+| 3001 |   18.69 | 1996-03-10 | 2008 |
+| 3002 | 1900.10 | 1996-10-03 | 2007 |
+| 3003 |  767.19 | 1996-10-03 | 2001 |
+| 3005 | 5160.45 | 1996-10-03 | 2003 |
+| 3006 | 1098.16 | 1996-10-03 | 2008 |
+| 3007 |   75.75 | 1996-10-04 | 2002 |
+| 3008 | 4723.00 | 1996-10-05 | 2006 |
+| 3009 | 1713.23 | 1996-10-04 | 2002 |
+| 3010 | 1309.95 | 1996-10-06 | 2004 |
+| 3011 | 9891.88 | 1996-10-06 | 2006 |
++------+---------+------------+------+
+10 rows in set (0.00 sec)
+
+mysql> desc salespeople;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| snum  | int(11)      | NO   | PRI | NULL    |       |
+| sname | varchar(30)  | NO   |     | NULL    |       |
+| city  | varchar(30)  | NO   |     | NULL    |       |
+| comm  | decimal(4,2) | NO   |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> select * from salesperson;
+ERROR 1146 (42S02): Table 'hasini1218.salesperson' doesn't exist
+mysql> select * from salespeople;
++------+---------+-----------+------+
+| snum | sname   | city      | comm |
++------+---------+-----------+------+
+| 1001 | Peel    | London    | 0.12 |
+| 1002 | Serres  | San Jose  | 0.13 |
+| 1003 | AxelRod | New York  | 0.10 |
+| 1004 | Motika  | London    | 0.11 |
+| 1005 | Fran    | London    | 0.26 |
+| 1007 | Rifkin  | Barcelona | 0.15 |
++------+---------+-----------+------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT
+    ->     s.snum AS salesperson_id,
+    ->     s.sname AS salesperson_name,
+    ->     SUM(o.amt) AS total_sales
+    -> FROM
+    ->     salespeople s
+    -> JOIN
+    ->     customer c ON s.snum = c.snum
+    -> JOIN
+    ->     orders o ON c.cnum = o.cnum
+    -> GROUP BY
+    ->     s.snum, s.sname
+    -> ORDER BY
+    ->     total_sales DESC
+    -> LIMIT 1;
++----------------+------------------+-------------+
+| salesperson_id | salesperson_name | total_sales |
++----------------+------------------+-------------+
+|           1001 | Peel             |    15382.07 |
++----------------+------------------+-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT
+    ->     s.snum AS salesperson_id,
+    ->     s.sname AS salesperson_name,
+    ->     COUNT(c.cnum) AS customer_count
+    -> FROM
+    ->     salespeople s
+    -> LEFT JOIN
+    ->     customer c ON s.snum = c.snum
+    -> GROUP BY
+    ->     s.snum, s.sname
+    -> ORDER BY
+    ->     customer_count DESC;
++----------------+------------------+----------------+
+| salesperson_id | salesperson_name | customer_count |
++----------------+------------------+----------------+
+|           1001 | Peel             |              2 |
+|           1002 | Serres           |              2 |
+|           1007 | Rifkin           |              1 |
+|           1003 | AxelRod          |              1 |
+|           1004 | Motika           |              1 |
+|           1005 | Fran             |              0 |
++----------------+------------------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT
+    ->     c.cnum AS customer_id,
+    ->     c.cname AS customer_name,
+    ->     COUNT(o.onum) AS order_count
+    -> FROM
+    ->     customer c
+    -> JOIN
+    ->     orders o ON c.cnum = o.cnum
+    -> GROUP BY
+    ->     c.cnum, c.cname
+    -> ORDER BY
+    ->     order_count DESC
+    -> LIMIT 1;
++-------------+---------------+-------------+
+| customer_id | customer_name | order_count |
++-------------+---------------+-------------+
+|        2008 | Cisneros      |           2 |
++-------------+---------------+-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT
+    ->     s.snum AS salesperson_id,
+    ->     s.sname AS salesperson_name,
+    ->     AVG(o.amt) AS average_order_size
+    -> FROM
+    ->     salespeople s
+    -> JOIN
+    ->     customer c ON s.snum = c.snum
+    -> JOIN
+    ->     orders o ON c.cnum = o.cnum
+    -> GROUP BY
+    ->     s.snum, s.sname
+    -> ORDER BY
+    ->     average_order_size DESC;
++----------------+------------------+--------------------+
+| salesperson_id | salesperson_name | average_order_size |
++----------------+------------------+--------------------+
+|           1001 | Peel             |        5127.356667 |
+|           1002 | Serres           |        3235.200000 |
+|           1004 | Motika           |        1900.100000 |
+|           1003 | AxelRod          |         894.490000 |
+|           1007 | Rifkin           |         558.425000 |
++----------------+------------------+--------------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT
+    ->     c.cnum AS customer_id,
+    ->     c.cname AS customer_name,
+    ->     SUM(o.amt) AS total_spent
+    -> FROM
+    ->     customer c
+    -> JOIN
+    ->     orders o ON c.cnum = o.cnum
+    -> GROUP BY
+    ->     c.cnum, c.cname
+    -> ORDER BY
+    ->     total_spent DESC
+    -> LIMIT 1;
++-------------+---------------+-------------+
+| customer_id | customer_name | total_spent |
++-------------+---------------+-------------+
+|        2006 | Clemens       |    14614.88 |
++-------------+---------------+-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT
+    ->     s.city AS city,
+    ->     SUM(o.amt) AS total_sales
+    -> FROM
+    ->     salespeople s
+    -> JOIN
+    ->     customer c ON s.snum = c.snum
+    -> JOIN
+    ->     orders o ON c.cnum = o.cnum
+    -> GROUP BY
+    ->     s.city
+    -> ORDER BY
+    ->     total_sales DESC;
++-----------+-------------+
+| city      | total_sales |
++-----------+-------------+
+| London    |    17282.17 |
+| San Jose  |     6470.40 |
+| New York  |     1788.98 |
+| Barcelona |     1116.85 |
++-----------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT
+    ->     s.snum AS salesperson_id,
+    ->     s.sname AS salesperson_name,
+    ->     AVG(c.rating) AS average_rating
+    -> FROM
+    ->     salespeople s
+    -> JOIN
+    ->     customer c ON s.snum = c.snum
+    -> GROUP BY
+    ->     s.snum, s.sname
+    -> ORDER BY
+    ->     average_rating DESC
+    -> LIMIT 1;
++----------------+------------------+----------------+
+| salesperson_id | salesperson_name | average_rating |
++----------------+------------------+----------------+
+|           1007 | Rifkin           |       300.0000 |
++----------------+------------------+----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT
+    ->     s.snum AS salesperson_id,
+    ->     s.sname AS salesperson_name,
+    ->     COUNT(DISTINCT o.cnum) AS customers_with_orders,
+    ->     COUNT(DISTINCT c.cnum) AS total_customers,
+    ->     ROUND((COUNT(DISTINCT o.cnum) * 100.0) / COUNT(DISTINCT c.cnum), 2) AS percentage_with_orders
+    -> FROM
+    ->     salespeople s
+    -> JOIN
+    ->     customer c ON s.snum = c.snum
+    -> LEFT JOIN
+    ->     orders o ON c.cnum = o.cnum
+    -> GROUP BY
+    ->     s.snum, s.sname
+    -> ORDER BY
+    ->     percentage_with_orders DESC;
++----------------+------------------+-----------------------+-----------------+------------------------+
+| salesperson_id | salesperson_name | customers_with_orders | total_customers | percentage_with_orders |
++----------------+------------------+-----------------------+-----------------+------------------------+
+|           1004 | Motika           |                     1 |               1 |                 100.00 |
+|           1001 | Peel             |                     2 |               2 |                 100.00 |
+|           1007 | Rifkin           |                     1 |               1 |                 100.00 |
+|           1002 | Serres           |                     2 |               2 |                 100.00 |
+|           1003 | AxelRod          |                     1 |               1 |                 100.00 |
++----------------+------------------+-----------------------+-----------------+------------------------+
+5 rows in set (0.01 sec)
+
+mysql> SELECT
+    ->     c.cnum AS customer_id,
+    ->     c.cname AS customer_name,
+    ->     SUM(o.amt) AS total_revenue
+    -> FROM
+    ->     customer c
+    -> JOIN
+    ->     orders o ON c.cnum = o.cnum
+    -> GROUP BY
+    ->     c.cnum, c.cname
+    -> ORDER BY
+    ->     total_revenue DESC;
++-------------+---------------+---------------+
+| customer_id | customer_name | total_revenue |
++-------------+---------------+---------------+
+|        2006 | Clemens       |      14614.88 |
+|        2003 | Liu           |       5160.45 |
+|        2007 | Pereira       |       1900.10 |
+|        2002 | Giovanni      |       1788.98 |
+|        2004 | Grass         |       1309.95 |
+|        2008 | Cisneros      |       1116.85 |
+|        2001 | Hoffman       |        767.19 |
++-------------+---------------+---------------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT
+    ->     c.cnum AS customer_id,
+    ->     c.cname AS customer_name,
+    ->     c.city AS customer_city
+    -> FROM
+    ->     customer c
+    -> LEFT JOIN
+    ->     orders o ON c.cnum = o.cnum
+    -> WHERE
+    ->     o.cnum IS NULL;
+Empty set (0.00 sec)
+
+mysql> SELECT
+    ->     s.snum AS salesperson_id,
+    ->     s.sname AS salesperson_name,
+    ->     SUM(o.amt) AS total_revenue,
+    ->     ROUND((SUM(o.amt) / (SELECT SUM(amt) FROM orders) * 100), 2) AS percentage_of_total_revenue
+    -> FROM
+    ->     salespeople s
+    -> JOIN
+    ->     customer c ON s.snum = c.snum
+    -> JOIN
+    ->     orders o ON c.cnum = o.cnum
+    -> GROUP BY
+    ->     s.snum, s.sname
+    -> ORDER BY
+    ->     percentage_of_total_revenue DESC;
++----------------+------------------+---------------+-----------------------------+
+| salesperson_id | salesperson_name | total_revenue | percentage_of_total_revenue |
++----------------+------------------+---------------+-----------------------------+
+|           1001 | Peel             |      15382.07 |                       57.70 |
+|           1002 | Serres           |       6470.40 |                       24.27 |
+|           1004 | Motika           |       1900.10 |                        7.13 |
+|           1003 | AxelRod          |       1788.98 |                        6.71 |
+|           1007 | Rifkin           |       1116.85 |                        4.19 |
++----------------+------------------+---------------+-----------------------------+
+5 rows in set (0.01 sec)
+
+mysql>
