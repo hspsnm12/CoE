@@ -1,0 +1,40 @@
+Product_ID,Product_Name,Dealer,Stock_Level,Reorder_Threshold,Sales_Last_Month,Location
+101,Laptop,Dealer_A,50,20,25,New York
+102,Smartphone,Dealer_B,120,50,80,Los Angeles
+103,Tablet,Dealer_C,75,30,40,Chicago
+104,Headphones,Dealer_A,200,100,150,Houston
+105,Smartwatch,Dealer_B,90,40,60,Miami
+106,Laptop,Dealer_A,155,75,113,New York
+107,Smartphone,Dealer_B,171,84,127,Los Angeles
+108,Tablet,Dealer_C,187,93,141,Chicago
+109,Headphones,Dealer_A,203,102,155,Houston
+110,Smartwatch,Dealer_B,219,111,169,Miami
+111,Laptop,Dealer_A,235,120,183,New York
+112,Smartphone,Dealer_B,251,129,197,Los Angeles
+113,Tablet,Dealer_C,267,138,211,Chicago
+114,Headphones,Dealer_A,283,147,225,Houston
+115,Smartwatch,Dealer_B,299,156,239,Miami
+116,Laptop,Dealer_A,315,165,253,New York
+117,Smartphone,Dealer_B,331,174,267,Los Angeles
+118,Tablet,Dealer_C,347,183,281,Chicago
+119,Headphones,Dealer_A,363,192,295,Houston
+120,Smartwatch,Dealer_B,379,201,309,Miami
+121,Laptop,Dealer_A,395,210,323,New York
+122,Smartphone,Dealer_B,411,219,337,Los Angeles
+123,Tablet,Dealer_C,427,228,351,Chicago
+124,Laptop,Dealer_A,443,237,365,New York
+125,Smartphone,Dealer_B,459,246,379,Los Angeles
+126,Tablet,Dealer_C,475,255,393,Chicago
+127,Headphones,Dealer_A,491,264,407,Houston
+128,Smartwatch,Dealer_B,507,273,421,Miami
+129,Laptop,Dealer_A,523,282,435,New York
+130,Smartphone,Dealer_B,539,291,449,Los Angeles
+131,Tablet,Dealer_C,555,300,463,Chicago
+132,Headphones,Dealer_A,571,309,477,Houston
+133,Smartwatch,Dealer_B,587,318,491,Miami
+134,Laptop,Dealer_A,603,327,505,New York
+135,Smartphone,Dealer_B,619,336,519,Los Angeles
+136,Tablet,Dealer_C,635,345,533,Chicago
+137,Headphones,Dealer_A,651,354,547,Houston
+138,Smartwatch,Dealer_B,667,363,561,Miami
+139,Laptop,Dealer_A,683,372,575,New York
